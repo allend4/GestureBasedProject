@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BowlingBall : MonoBehaviour
 {
@@ -11,10 +12,30 @@ public class BowlingBall : MonoBehaviour
     private Vector3 ballPosition;
     public AudioClip noise;
 
+    // Score
+    public GameObject ball;
+    int score = 0;
+    int turnCounter = 0;
+    GameObject[] pins;
+    public Text scoreUI;
+
+    Vector3[] positions;
+
     // Start is called before the first frame update
     void Start()
     {
-        var pins = GameObject.FindGameObjectsWithTag("Pin");
+        //stored pins in the array
+        pins = GameObject.FindGameObjectsWithTag("Pin");
+        //size of position = pin array
+        positions = new Vector3[pins.Length];
+
+        for(int i = 0; i < pins.Length; i++)
+        {
+            //save position in ney array
+            positions[i] = pins[i].transform.position;
+        }
+
+        //var pins = GameObject.FindGameObjectsWithTag("Pin");
         pinPositions = new List<Vector3>();
         pinRotations = new List<Quaternion>();
         foreach (var pin in pins)
@@ -40,6 +61,15 @@ public class BowlingBall : MonoBehaviour
         // ball right - impulse gradual
         if (Input.GetKeyDown(KeyCode.RightArrow))
             GetComponent<Rigidbody>().AddForce(new Vector3(-1, 0, 0), ForceMode.Impulse);
+
+        if (Input.GetKeyDown(KeyCode.Space) || ball.transform.position.y < -20)
+        {
+            CountPinsDown();
+            turnCounter++;
+            //ResetPins();
+        }
+
+        
         // resets pins
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -54,14 +84,11 @@ public class BowlingBall : MonoBehaviour
                 pinPhysics.velocity = Vector3.zero;
                 pinPhysics.angularVelocity = Vector3.zero;
 
-                var ball = GameObject.FindGameObjectWithTag("Ball");
-                ball.transform.position = ballPosition;
-                ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                ball.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
             }
         }
-
+  
         // reset ball
+        
         if (Input.GetKeyDown(KeyCode.B))
         {
             var ball = GameObject.FindGameObjectWithTag("Ball");
@@ -69,6 +96,25 @@ public class BowlingBall : MonoBehaviour
             ball.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
             ball.transform.position = ballPosition;
         }
+ 
+
+    }
+    void CountPinsDown()
+    {
+        for (int i = 0; i < pins.Length; i++)
+        {
+            //eulerAngles  is checking if its larger than 5 ansd smaller than 355
+            if (pins[i].transform.eulerAngles.z > 5 && pins[i].transform.eulerAngles.z < 355 &&
+                pins[i].activeSelf)
+                
+            {
+                score++;
+                pins[i].SetActive(false);
+            }
+        }
+
+        //Debug.Log(score);
+        scoreUI.text = score.ToString();
     }
 
     // play audio on collision with pins
@@ -77,4 +123,5 @@ public class BowlingBall : MonoBehaviour
         if (collision.gameObject.tag == "Pin")
             GetComponent<AudioSource>().Play();
     }
+ 
 }
