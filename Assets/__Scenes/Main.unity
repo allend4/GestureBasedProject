@@ -1319,6 +1319,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BowlingBall
       objectReference: {fileID: 0}
+    - target: {fileID: 1875235393226030728, guid: 8b916d7c59903f94a9d220e4d47e8b3c, type: 3}
+      propertyPath: noise
+      value: 
+      objectReference: {fileID: 8300000, guid: 181ca92257a999f4887718ee98615dce, type: 3}
     - target: {fileID: 1875235393226030729, guid: 8b916d7c59903f94a9d220e4d47e8b3c, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -1375,12 +1379,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 89.235
       objectReference: {fileID: 0}
-    - target: {fileID: 1875235393226030731, guid: 8b916d7c59903f94a9d220e4d47e8b3c, type: 3}
+    - target: {fileID: 0}
       propertyPath: force
       value: -2400
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 1875235393226030731, guid: 8b916d7c59903f94a9d220e4d47e8b3c, type: 3}
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 8b916d7c59903f94a9d220e4d47e8b3c, type: 3}
 --- !u!1 &911478098
 GameObject:

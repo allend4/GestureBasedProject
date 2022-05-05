@@ -9,6 +9,7 @@ public class BowlingBall : MonoBehaviour
     private List<Vector3> pinPositions;
     private List<Quaternion> pinRotations;
     private Vector3 ballPosition;
+    public AudioClip noise;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,8 @@ public class BowlingBall : MonoBehaviour
         }
 
         ballPosition = GameObject.FindGameObjectWithTag("Ball").transform.position;
+
+        noise = GetComponent<AudioClip>();
     }
 
     // Update is called once per frame
