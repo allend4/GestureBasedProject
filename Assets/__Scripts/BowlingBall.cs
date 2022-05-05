@@ -68,4 +68,10 @@ public class BowlingBall : MonoBehaviour
         }
     }
 
+    // play audio on collision with pins
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Pin")
+            GetComponent<AudioSource>().Play();
+    }
 }
