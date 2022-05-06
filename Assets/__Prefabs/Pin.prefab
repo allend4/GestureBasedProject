@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5603390093078938215}
   - component: {fileID: 5603390093078938217}
   - component: {fileID: 2703309124667281751}
+  - component: {fileID: -3039073861729630088}
   m_Layer: 0
   m_Name: Pin
   m_TagString: Pin
@@ -113,3 +114,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.02891138, y: 0.029123722, z: 0.09545635}
   m_Center: {x: -0.00021112431, y: -0.000011985654, z: 0.012006713}
+--- !u!114 &-3039073861729630088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5603390093078938219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28ca996347857004c97a92febd47202a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isFallen: 0

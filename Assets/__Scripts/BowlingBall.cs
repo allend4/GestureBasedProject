@@ -11,6 +11,8 @@ public class BowlingBall : MonoBehaviour
     private List<Quaternion> pinRotations;
     private Vector3 ballPosition;
     public AudioClip noise;
+    public bool ballThrown = false;
+    public GameObject alley;
 
     // Score
     public GameObject ball;
@@ -85,6 +87,12 @@ public class BowlingBall : MonoBehaviour
                 pinPhysics.angularVelocity = Vector3.zero;
 
             }
+
+            if (ballThrown == false)
+            {
+                var ball = GameObject.FindGameObjectWithTag("Ball");
+                ball.transform.position = alley.transform.position;
+            }
         }
   
         // reset ball
@@ -123,5 +131,5 @@ public class BowlingBall : MonoBehaviour
         if (collision.gameObject.tag == "Pin")
             GetComponent<AudioSource>().Play();
     }
- 
+
 }
