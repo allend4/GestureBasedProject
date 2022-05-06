@@ -3,14 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+using LockingPolicy = Thalmic.Myo.LockingPolicy;
+using Pose = Thalmic.Myo.Pose;
+using UnlockType = Thalmic.Myo.UnlockType;
+using Vibrationtype = Thalmic.Myo.VibrationType;
+
 public class PauseMenu : MonoBehaviour
 {
     public static bool GameIsPaused = false;
 
     public GameObject pauseMenuUI;
+    public GameObject pauseGestureUI;
+
+    public GameObject myo = null;
+    private Pose lastPose = Pose.Unknown;
 
     void Update()
     {
+        ThalmicMyo thalmicMyo = myo.GetComponent<ThalmicMyo>();
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (GameIsPaused)
@@ -22,12 +33,31 @@ public class PauseMenu : MonoBehaviour
                 Pause();
             }
         }
+
+        if (thalmicMyo.pose == Pose.FingersSpread)
+        {
+            GameIsPaused = true;
+
+            // wave out to resume game
+            if (thalmicMyo.pose == Pose.WaveOut)
+            {
+                Resume();
+                Debug.Log("Wave Out");
+            }
+            // wave in to quit game
+            else if (thalmicMyo.pose == Pose.WaveIn)
+            {
+                QuitGame();
+                Debug.Log("Wave In");
+            }
+        }
     }
 
     // Game resumes with timescale 1
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
+        pauseGestureUI.SetActive(true);
         Time.timeScale = 1f;
         GameIsPaused = false;
     }
@@ -36,6 +66,7 @@ public class PauseMenu : MonoBehaviour
     public void Pause()
     {
         pauseMenuUI.SetActive(true);
+        pauseGestureUI.SetActive(false);
         Time.timeScale = 0f;
         GameIsPaused = true;
     }
