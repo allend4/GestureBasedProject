@@ -22,7 +22,7 @@ public class PauseMenu : MonoBehaviour
     {
         ThalmicMyo thalmicMyo = myo.GetComponent<ThalmicMyo>();
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) || thalmicMyo.pose == Pose.FingersSpread)
         {
             if (GameIsPaused)
             {
@@ -34,10 +34,8 @@ public class PauseMenu : MonoBehaviour
             }
         }
 
-        if (thalmicMyo.pose == Pose.FingersSpread)
+        if (thalmicMyo.pose != lastPose)
         {
-            GameIsPaused = true;
-
             // wave out to resume game
             if (thalmicMyo.pose == Pose.WaveOut)
             {
